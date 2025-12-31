@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Year Together</title>
+<style>
+:root {
+    --primary-pink: #ff4d6d;
+    --soft-white: #fff0f3;
+    --gold: #ffb703;
+}
+body {
+    margin: 0;
+    background: radial-gradient(circle, #1a0505 0%, #000000 100%);
+    color: white;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* Music Overlay Styles */
+#overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 1s ease;
+}
+#start-btn {
+    background: var(--primary-pink);
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--primary-pink);
+}
+
+.container { padding: 40px 20px; }
+h1 { font-size: 2.5rem; color: var(--primary-pink); text-shadow: 0 0 10px rgba(255,77,109,0.3); }
+
+/* Photo Gallery Styling */
+.photo-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px auto;
+    max-width: 1000px;
+}
+.polaroid {
+    background: white;
+    padding: 10px 10px 25px 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+    width: 250px;
+}
+.polaroid:nth-child(even) { transform: rotate(3deg); }
+.polaroid:hover { transform: scale(1.05) rotate(0deg); z-index: 20; }
+.polaroid img { width: 100%; height: 300px; object-fit: cover; display: block; }
+.caption { color: #333; font-family: 'Cursive', sans-serif; margin-top: 10px; font-weight: bold; }
+
+.countdown { display: flex; gap: 10px; justify-content: center; margin: 20px 0; }
+.time-box { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; border: 1px solid var(--primary-pink); width: 60px; }
+.time-box span { display: block; font-size: 1.2rem; color: var(--gold); }
+
+.heart { position: fixed; color: var(--primary-pink); z-index: -1; animation: float 6s linear infinite; pointer-events: none; }
+@keyframes float {
+    0% { transform: translateY(100vh) scale(0); opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<div id="overlay">
+    <h2 style="color: var(--primary-pink);">Ready for 2026 my love ?</h2>
+    <button id="start-btn">Click to Open ❤️</button>
+</div>
+
+<audio id="bg-music" loop>
+    <source src="src/song/WhatsApp Audio 2026-01-01 at 12.59.57 AM.mpeg" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <h1 id="heading">Counting Down to 2026...</h1>
+    <div class="countdown" id="countdown">
+        <div class="time-box"><span id="days">00</span>Days</div>
+        <div class="time-box"><span id="hours">00</span>Hrs</div>
+        <div class="time-box"><span id="mins">00</span>Mins</div>
+        <div class="time-box"><span id="secs">00</span>Secs</div>
+    </div>
+
+    <h2>Our Memories</h2>
+    <div class="photo-section">
+        <div class="polaroid">
+            <img src="src/img/16992898-440A-48AE-80EB-0EEAF3F37214.jpg" alt="Memory 1">
+            <div class="caption">Where it started ❤️</div>
+        </div>
+        <div class="polaroid">
+            <img src="src/img/BD7D4AF8-C9AA-4E79-A469-C8B4DAFCF493.jpg" alt="Memory 2">
+            <div class="caption">Favorite Date Night 🥂</div>
+        </div>
+        <div class="polaroid">
+            <img src="src/img/IMG_6303.PNG" alt="Memory 3">
+            <div class="caption">My Favorite Smile ✨</div>
+        </div>
+        <div class="polaroid">
+            <img src="src/img/CBD5F9AE-8AF0-4AD4-9CEE-ADE2CADE3991.jpg" alt="Memory 3">
+            <div class="caption">My Favorite Smile ✨</div>
+        </div>
+        <div class="polaroid">
+            <img src="src/img/WhatsApp Image 2026-01-01 at 1.33.34 AM.jpeg" alt="Memory 3">
+            <div class="caption">My Favorite Smile ✨</div>
+        </div>
+    </div>
+    
+    <p style="max-width: 600px; margin: 0 auto; color: #ffccd5;">
+        Every picture tells a story of how much you mean to me.<br>
+        I can't wait to fill more albums with you in 2026.
+    </p>
+</div>
+
+<script>
+// Audio and Overlay Logic
+const overlay = document.getElementById('overlay');
+const startBtn = document.getElementById('start-btn');
+const music = document.getElementById('bg-music');
+
+startBtn.addEventListener('click', () => {
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+        overlay.style.display = 'none';
+    }, 1000);
+    music.play(); // This starts the audio
+});
+
+// Floating hearts
+setInterval(() => {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '❤️';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 400);
+
+// Countdown Logic
+const targetDate = new Date("January 1, 2026 00:00:00").getTime();
+function update() {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+    
+    if (diff <= 0) {
+        document.getElementById("heading").innerText = "Happy New Year, My Love! ❤️";
+        document.getElementById("countdown").innerHTML = "<h3>2026 is Here! 🥂</h3>";
+        return;
+    }
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    document.getElementById("days").innerText = d;
+    document.getElementById("hours").innerText = h;
+    document.getElementById("mins").innerText = m;
+    document.getElementById("secs").innerText = s;
+}
+setInterval(update, 1000);
+update(); // Run once immediately
+</script>
+</body>
+</html>
